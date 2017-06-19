@@ -1,0 +1,9 @@
+.left{
+	padding: 15px 30px;
+	float: left;
+}
+
+.right{
+	padding: 25px 30px;
+	float: right;
+}
