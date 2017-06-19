@@ -1,9 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Router, Route, Redirect, hashHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
+import thunk from 'redux-thunk';
+import throttle from 'lodash/throttle';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import './css/bootstrap.min.css';
 import './css/custom.css';
 
@@ -11,13 +14,15 @@ import './css/custom.css';
 import LoginForm from './components/LoginForm';
 import RegistrationForm from './components/RegistrationForm';
 import ListOfToDos from './components/todoList/ListOfToDos';
+import { loadState, saveState } from './components/localStorage';
 
 import reducer from './reducers';
 
-const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
-// store.subscribe(() => {
-// 	console.log('subscribe', store.getState());
-// });
+const persistedState = loadState();
+const store = createStore(reducer, persistedState, composeWithDevTools(applyMiddleware(thunk)));
+store.subscribe(throttle(() => {
+	saveState(store.getState());
+}, 1000));
 
 const history = syncHistoryWithStore(hashHistory, store);
 

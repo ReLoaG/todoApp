@@ -21,9 +21,10 @@ var actions = {
 	},
 
 	addNewToDo: function (text) {
+		if(text.length > 0)
   	return{
   		type: 'ADD_TODO',
-	    id: nextTodoId++,
+	    id: Math.floor(Math.random()*100000000000),
 	    text
 		}
 	},
