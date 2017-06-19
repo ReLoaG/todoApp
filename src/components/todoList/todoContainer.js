@@ -28,7 +28,7 @@ class TodoContainer extends React.Component{
 									</strong>
 								</div>
 								<div className="col-md-2">
-									<button onClick={this.deleteToDo.bind(this)} className="btn btn-default">Delete</button>
+									<button onClick={() => this.props.deleteToDo(a.id)} className="btn btn-default">Delete</button>
 								</div>
 							</div>
 						)}

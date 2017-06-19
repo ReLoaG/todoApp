@@ -33,6 +33,13 @@ var actions = {
   		type: 'TOGGLE_TODO', 
 	  	id
 		}
+	},
+
+	deleteToDo: function (id) {
+  	return{
+  		type: 'DELETE_TODO', 
+	  	id
+		}
 	}
 }
  
