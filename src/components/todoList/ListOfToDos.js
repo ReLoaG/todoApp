@@ -12,10 +12,7 @@ class ListOfToDos extends React.Component{
 		return(
 			<div>
 				<Header />
-				<hr />
-				<hr />
 				<AddToDo />
-				<hr />
 				<TodoContainer />
 			</div>
 		);

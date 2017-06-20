@@ -18,8 +18,8 @@ class AddToDo extends React.Component{
 			<div className="container">
 				<div className="row">
 					<div className="col-md-12">
-					<input type="text" ref="inputToDo" />
-					<button onClick={this.handleToDo.bind(this)} className="btn btn-primary">Add ToDo</button>
+						<input className="input-todo" type="text" ref="inputToDo" placeholder="What needs to be done?" />
+						<button onClick={this.handleToDo.bind(this)} className="btn btn-primary btn-todo">Add ToDo</button>
 					</div>
 				</div>
 			</div>

@@ -29,15 +29,16 @@ class LoginForm extends React.Component {
   handleSubmit(e){
     const emailInput = this.refs.emailInput;
     const passwordInput = this.refs.passwordInput;
-    var loggedIn = new Number();
 
-    const logIn = Backendless.UserService.login( emailInput.value, passwordInput.value, true )
-      // .then(() => loggedIn = 1)
-      // .catch(() => loggedIn = 0);
-    // logIn === true ? loggedIn = 1 : loggedIn = 0;
-    console.log('loggedIn: ' + logIn.email);
-
-    return this.props.loginUser(loggedIn);
+    var logIn = Backendless.UserService.login( emailInput.value, passwordInput.value, true )
+    .then(() =>{
+      this.props.loginUser(true);
+      console.log('you have been logged in and we`re redirecting you to your todoList!');
+    })
+    .catch(() => {
+      this.props.loginUser(true);
+      alert('You have entered invalid email or password');
+    });
   }
 
   render() {
@@ -46,18 +47,18 @@ class LoginForm extends React.Component {
       <div className="container">
         <div className="row">
           <div className="col-md-4 col-md-offset-4">
-          <h2>Login</h2>
+          <h3 className="title">Login</h3>
           <form onSubmit={this.handleSubmit.bind(this)}>
 
               <label>Enter e-mail</label><br />
-              <input type="text" value={this.props.testStore.email} ref="emailInput"  /> <br />
+              <input className="input" type="text" value={this.props.testStore.email} ref="emailInput" placeholder="Enter your email address" /> <br />
 
               <label>Enter password</label><br />
-              <input type="password" value={this.props.testStore.pass} ref="passwordInput"  /> <br />
+              <input className="input" type="password" value={this.props.testStore.pass} ref="passwordInput" placeholder="Enter your password" /> <br />
 
               <input type="submit" value="Login" className="btn btn-primary" /> <br />
 
-              <h4>Don`t have an account? <Link to="/register">Register</Link></h4>
+              <h6>Don`t have an account? <Link to="/register">Register</Link></h6>
               
           </form>
           </div>

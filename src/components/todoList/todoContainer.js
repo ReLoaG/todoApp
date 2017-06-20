@@ -12,22 +12,25 @@ class TodoContainer extends React.Component{
 	render() {
 		console.log('current todo list:', this.props.todos);
 		return(
-			<div className="container">
+			<div className="container todo-list-container">
 				<div className="row">
 					<form>
 						{this.props.todos.map((a) =>
-							<div key={a.id}>
+							<div className="each-todo" style={{
+							      backgroundColor: a.completed ? '#dff0d8': '#fff'
+							     }}
+							     key={a.id}>
 								<div className="col-md-2">
-									<input onChange={() => this.props.changeStatus(a.id)} type="checkbox" ref="inputToDo" />
+									<input checked={a.completed ? true : false } onChange={() => this.props.changeStatus(a.id)} type="checkbox" ref="inputToDo" />
 								</div>
-								<div className="col-md-8">
+								<div className="col-md-9">
 									<strong style={{
 							      textDecoration: a.completed ? 'line-through' : 'none'
 							    }}>
 											{a.text}
 									</strong>
 								</div>
-								<div className="col-md-2">
+								<div className="col-md-1">
 									<button onClick={() => this.props.deleteToDo(a.id)} className="btn btn-default">Delete</button>
 								</div>
 							</div>

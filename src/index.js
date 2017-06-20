@@ -10,7 +10,6 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import './css/bootstrap.min.css';
 import './css/custom.css';
 
-// import App from './App';
 import LoginForm from './components/LoginForm';
 import RegistrationForm from './components/RegistrationForm';
 import ListOfToDos from './components/todoList/ListOfToDos';
@@ -26,10 +25,12 @@ store.subscribe(throttle(() => {
 
 const history = syncHistoryWithStore(hashHistory, store);
 
+console.log('login status:  ', store.getState().loginStatus);
+
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={history}>
-      <Route path="/" /*render={() => loddedIn ?( <Redirect to="/todolist" /> ) : {}}*/ component={RegistrationForm}/>
+		<Router history={history}>
+      <Route path="/" component={ store.getState().loginStatus ? ListOfToDos : LoginForm }/>
       <Route path="/register" component={RegistrationForm}/>
       <Route path="/login" component={LoginForm}/>
       <Route path="/todolist" component={ListOfToDos}/>

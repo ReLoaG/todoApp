@@ -11,22 +11,22 @@ var actions = {
     }
 	},
 
-	loginUser: function(loginFlag){
+	loginUser: function(status = false){
 		return{
 	  	type: 'LOGGED_IN', 
 	  	payload: {
-	  		isLoggedIn: loginFlag
+	  		isLoggedIn: status
 	  	}
 	  }
 	},
 
 	addNewToDo: function (text) {
 		if(text.length > 0)
-  	return{
-  		type: 'ADD_TODO',
-	    id: Math.floor(Math.random()*100000000000),
-	    text
-		}
+  		return{
+	  		type: 'ADD_TODO',
+		    id: Math.floor(Math.random()*100000000000),
+		    text
+			}
 	},
 
 	changeStatus: function (id) {

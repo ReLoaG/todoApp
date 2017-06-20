@@ -28,18 +28,18 @@ class RegistrationForm extends React.Component{
       <div className="container">
         <div className="row">
           <div className="col-md-4 col-md-offset-4">
-			      <h2>Registration Form</h2>
+			      <h3 className="title">Registration Form</h3>
 				    <form onSubmit={this.handleSubmit.bind(this)}>
 
-				    		<label>Enter e-mail</label><br />
-				        <input type="text" value={this.props.testStore.email} ref="emailInput"  /> <br />
+				    	<label>Enter e-mail</label><br />
+				        <input className="input" type="text" value={this.props.testStore.email} ref="emailInput"  placeholder="Enter your email address" /> <br />
 
 				        <label>Enter password</label><br />
-				        <input type="password" value={this.props.testStore.pass} ref="passwordInput"  /> <br />
+				        <input className="input" type="password" value={this.props.testStore.pass} ref="passwordInput"  placeholder="Enter your password" /> <br />
 
 				        <input type="submit" value="Register" className="btn btn-primary"/> <br />
 
-				        <h4>Have an account? <Link to="/login">Login</Link></h4>
+				        <h6>Have an account? <Link to="/login">Login</Link></h6>
 				        
 				    </form>
       		</div>

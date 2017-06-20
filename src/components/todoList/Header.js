@@ -13,10 +13,10 @@ class Header extends React.Component{
 			<div className="container-fluid header">
 				<div className="row">
 					<div className="left">
-						<h4>Todo App</h4>
+						<span>Todo App</span>
 					</div>
 					<div className="right">
-						<button onClick={this.logoutUser.bind(this)}>Logout</button>
+						<button className="btn btn-default" onClick={this.logoutUser.bind(this)}>Logout</button>
 					</div>
 				</div>
 			</div>
