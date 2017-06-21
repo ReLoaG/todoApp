@@ -1,4 +1,3 @@
-let nextTodoId = 0;
 var actions = {
 
 	registerNewUser: function (email, pass) {
@@ -11,9 +10,20 @@ var actions = {
     }
 	},
 
-	loginUser: function(status = false){
+	loginUser: function(email, pass, status = false){
 		return{
 	  	type: 'LOGGED_IN', 
+	  	payload: {
+	  		email: email,
+	  		pass: pass,
+	  		isLoggedIn: status
+	  	}
+	  }
+	},
+
+	logoutUser: function(status = false){
+		return{
+	  	type: 'LOGGED_OUT', 
 	  	payload: {
 	  		isLoggedIn: status
 	  	}

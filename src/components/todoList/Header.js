@@ -1,11 +1,16 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { actions } from '../../actions';
+import Backendless from 'backendless';
 
 class Header extends React.Component{
 
 	logoutUser(){
-		return(
-			alert('User was logged out!')
-		);
+		Backendless.UserService.logout();
+		alert('User was logged out!');
+		this.props.logoutUser();
+		return window.location = '/';
+		// return hashHistory.push('/');
 	}
 
 	render() {
@@ -24,4 +29,9 @@ class Header extends React.Component{
 	}
 }
 
-export default Header;
+export default connect(
+	state => ({
+    userState: state.loginStatus
+  }),
+  actions
+)(Header);

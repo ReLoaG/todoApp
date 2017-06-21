@@ -2,11 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-import { Router, Route, Redirect, hashHistory } from 'react-router';
+import { Router, Route, hashHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import thunk from 'redux-thunk';
 import throttle from 'lodash/throttle';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import Backendless from 'backendless';
 import './css/bootstrap.min.css';
 import './css/custom.css';
 
@@ -17,6 +18,8 @@ import { loadState, saveState } from './components/localStorage';
 
 import reducer from './reducers';
 
+Backendless.initApp( "25966DF2-EBF5-7EA6-FFC7-43173838AB00", "9F29A9CF-EE5E-5083-FFDC-3398D5BC3400", "v1" );
+
 const persistedState = loadState();
 const store = createStore(reducer, persistedState, composeWithDevTools(applyMiddleware(thunk)));
 store.subscribe(throttle(() => {
@@ -25,12 +28,12 @@ store.subscribe(throttle(() => {
 
 const history = syncHistoryWithStore(hashHistory, store);
 
-console.log('login status:  ', store.getState().loginStatus);
+console.log('login status:  ' + store.getState().loginStatus.isLoggedIn);
 
 ReactDOM.render(
   <Provider store={store}>
 		<Router history={history}>
-      <Route path="/" component={ store.getState().loginStatus ? ListOfToDos : LoginForm }/>
+      <Route path="/" component={ store.getState().loginStatus.isLoggedIn ? ListOfToDos : LoginForm }/>
       <Route path="/register" component={RegistrationForm}/>
       <Route path="/login" component={LoginForm}/>
       <Route path="/todolist" component={ListOfToDos}/>

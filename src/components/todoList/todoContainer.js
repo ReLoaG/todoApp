@@ -20,10 +20,10 @@ class TodoContainer extends React.Component{
 							      backgroundColor: a.completed ? '#dff0d8': '#fff'
 							     }}
 							     key={a.id}>
-								<div className="col-md-2">
+								<div className="col-md-1">
 									<input checked={a.completed ? true : false } onChange={() => this.props.changeStatus(a.id)} type="checkbox" ref="inputToDo" />
 								</div>
-								<div className="col-md-9">
+								<div className="col-md-10">
 									<strong style={{
 							      textDecoration: a.completed ? 'line-through' : 'none'
 							    }}>

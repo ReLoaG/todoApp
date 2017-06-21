@@ -1,42 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router';
+import { Link } from 'react-router';
 import { actions } from '../actions';
 import Backendless from 'backendless';
 
 class LoginForm extends React.Component {
-  loginUser(userEmail, userPassword){
-    
-    fetch('https://api.backendless.com/25966DF2-EBF5-7EA6-FFC7-43173838AB00/9F29A9CF-EE5E-5083-FFDC-3398D5BC3400/data/existing_users', {  
-      method: 'POST',  
-      headers: {  
-        'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        "email": userEmail,
-        "password": userPassword
-      })
-    })
-    .then(function (data) {  
-      console.log('Request succeeded with JSON response', data);
-    })  
-    .catch(function (error) {  
-      console.log('Request failed', error);  
-    });
-  }
-
+  
   handleSubmit(e){
     const emailInput = this.refs.emailInput;
     const passwordInput = this.refs.passwordInput;
 
     var logIn = Backendless.UserService.login( emailInput.value, passwordInput.value, true )
     .then(() =>{
-      this.props.loginUser(true);
+      this.props.loginUser(emailInput.value, passwordInput.value, true);
       console.log('you have been logged in and we`re redirecting you to your todoList!');
+      this.refs.emailInput.value = '';
+      this.refs.passwordInput.value = '';
+      return window.location = '/';
     })
     .catch(() => {
-      this.props.loginUser(true);
+      this.props.loginUser(false);
       alert('You have entered invalid email or password');
     });
   }
@@ -51,10 +34,10 @@ class LoginForm extends React.Component {
           <form onSubmit={this.handleSubmit.bind(this)}>
 
               <label>Enter e-mail</label><br />
-              <input className="input" type="text" value={this.props.testStore.email} ref="emailInput" placeholder="Enter your email address" /> <br />
+              <input className="input" type="text" ref="emailInput" placeholder="Enter your email address" /> <br />
 
               <label>Enter password</label><br />
-              <input className="input" type="password" value={this.props.testStore.pass} ref="passwordInput" placeholder="Enter your password" /> <br />
+              <input className="input" type="password" ref="passwordInput" placeholder="Enter your password" /> <br />
 
               <input type="submit" value="Login" className="btn btn-primary" /> <br />
 

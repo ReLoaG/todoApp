@@ -3,9 +3,6 @@ import { connect } from 'react-redux';
 import { actions } from '../../actions';
 
 class AddToDo extends React.Component{
-	constructor(props){
-		super(props);
-	}
 
 	handleToDo(){
 		const newToDo = this.refs.inputToDo.value;

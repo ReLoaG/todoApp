@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { actions } from '../actions';
 import emailValidator from './Constants';
-import { registerUser, userRegistered, gotError } from './Register';
-
-
+import Backendless from 'backendless';
 
 class RegistrationForm extends React.Component{
 
@@ -13,13 +11,24 @@ class RegistrationForm extends React.Component{
   	const emailInput = this.refs.emailInput;
   	const passwordInput = this.refs.passwordInput;
   	
-  	if(emailValidator.test(emailInput.value)) {
-	  	registerUser( emailInput.value , passwordInput.value );
-    } else{
-    	alert("Entered email: " + emailInput.value + "  is invalid" );
-    }
+  	if(emailValidator.test(emailInput.value) && passwordInput.value !== '') {
+			var user = new Backendless.User();
+	    user.email = emailInput.value;
+	    user.password = passwordInput.value;
 
-    return this.props.registerNewUser(emailInput.value, passwordInput.value);
+	  	var register = Backendless.UserService.register( user ).then( () => {
+	  		this.props.registerNewUser(emailInput.value, passwordInput.value);
+	  		console.log('register', register);
+		  	this.refs.emailInput.value = '';
+		  	this.refs.passwordInput.value = '';
+
+	    	return window.location = '/';
+	  	}).catch(() => {
+	  		alert("Something`s going wrong, try again, please :)" );
+	  	});
+    } else{
+    	alert("Entered email: '" + emailInput.value + "'  is invalid" );
+    }
 	}
 
   render() {
@@ -32,10 +41,10 @@ class RegistrationForm extends React.Component{
 				    <form onSubmit={this.handleSubmit.bind(this)}>
 
 				    	<label>Enter e-mail</label><br />
-				        <input className="input" type="text" value={this.props.testStore.email} ref="emailInput"  placeholder="Enter your email address" /> <br />
+				        <input className="input" type="text" ref="emailInput"  placeholder="Enter your email address" /> <br />
 
 				        <label>Enter password</label><br />
-				        <input className="input" type="password" value={this.props.testStore.pass} ref="passwordInput"  placeholder="Enter your password" /> <br />
+				        <input className="input" type="password" ref="passwordInput"  placeholder="Enter your password" /> <br />
 
 				        <input type="submit" value="Register" className="btn btn-primary"/> <br />
 

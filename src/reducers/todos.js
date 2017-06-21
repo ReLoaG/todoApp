@@ -1,8 +1,3 @@
-let initialState = {
-	todoList: [],
-	todoLoading: false
-}
-
 export default function todos(state = [], action){
 	switch (action.type) {
 
